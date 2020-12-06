@@ -43,6 +43,13 @@ router.get('/:id', (req, res) => {
     console.log(error)
     res.status(400).render('main/404')
   })
+  db.article.findOne({
+    where: { id: 1 },
+    include: [db.comment]
+  }).then(function(article) {
+    // by using eager loading, the article model should have a comments key
+    res.render('articles/:id', { article: comment })
+  })
 })
 
 module.exports = router
